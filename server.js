@@ -59,6 +59,9 @@ app.post('/convert-to-pdf', async (req, res) => {
         });
         const page = await browser.newPage();
 
+        // Increase timeout to ensure React fully renders
+        await page.setDefaultNavigationTimeout(60000); // 60 seconds
+
         // Navigate to the given URL
         await page.goto(url, { waitUntil: 'networkidle2' });
 
