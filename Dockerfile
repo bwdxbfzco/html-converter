@@ -27,7 +27,7 @@ RUN useradd -m appuser
 WORKDIR /app
 
 # Install pnpm
-RUN npm install pnpm
+RUN npm install pnpm -g
 
 # Copy package files and install dependencies
 COPY package.json ./
