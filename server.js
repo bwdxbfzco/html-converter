@@ -18,9 +18,16 @@ app.post('/', async (req, res) => {
         // Launch Puppeteer with necessary flags
         const browser = await puppeteer.launch({
             headless: 'new',
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080']
         });
         const page = await browser.newPage();
+
+        // Set viewport resolution
+        await page.setViewport({
+            width: 1920,
+            height: 1080,
+            deviceScaleFactor: 1 // Adjust for higher DPI screens
+        });
 
         // Increase timeout to ensure React fully renders
         await page.setDefaultNavigationTimeout(60000); // 60 seconds
@@ -53,8 +60,6 @@ app.post('/', async (req, res) => {
 app.post('/convert-to-pdf', async (req, res) => {
     const { url, selectorId } = req.body;
 
-    console.log('url', url)
-
     if (!url) {
         return res.status(400).json({ error: 'URL is required' });
     }
@@ -63,9 +68,16 @@ app.post('/convert-to-pdf', async (req, res) => {
         // Launch Puppeteer with necessary flags
         const browser = await puppeteer.launch({
             headless: 'new',
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080']
         });
         const page = await browser.newPage();
+
+        // Set viewport resolution
+        await page.setViewport({
+            width: 1920,
+            height: 1080,
+            deviceScaleFactor: 1 // Adjust for higher DPI screens
+        });
 
         // Increase timeout to ensure React fully renders
         //await page.setDefaultNavigationTimeout(1200000); // 60 seconds
