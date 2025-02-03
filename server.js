@@ -51,6 +51,8 @@ app.post('/', async (req, res) => {
 app.post('/convert-to-pdf', async (req, res) => {
     const { url } = req.body;
 
+    console.log('url', url)
+
     if (!url) {
         return res.status(400).json({ error: 'URL is required' });
     }
