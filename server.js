@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Endpoint to capture a screenshot of a given URL
 app.post('/', async (req, res) => {
-    const { url } = req.body;
+    const { url, selectorId } = req.body;
 
     if (!url) {
         return res.status(400).json({ error: 'URL is required' });
@@ -28,7 +28,9 @@ app.post('/', async (req, res) => {
         // Navigate to the given URL
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        await page.waitForSelector('#dashboard', { timeout: 120000 });
+        if (selectorId) {
+            await page.waitForSelector(selectorId, { timeout: 120000 });
+        }
 
         await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5000)));
 
@@ -49,7 +51,7 @@ app.post('/', async (req, res) => {
 });
 
 app.post('/convert-to-pdf', async (req, res) => {
-    const { url } = req.body;
+    const { url, selectorId } = req.body;
 
     console.log('url', url)
 
@@ -71,7 +73,9 @@ app.post('/convert-to-pdf', async (req, res) => {
         // Navigate to the given URL
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        await page.waitForSelector('#dashboard', { timeout: 120000 });
+        if (selectorId) {
+            await page.waitForSelector(selectorId, { timeout: 120000 });
+        }
 
         await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5000)));
 
