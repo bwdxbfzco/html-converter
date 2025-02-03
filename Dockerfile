@@ -27,7 +27,7 @@ RUN useradd -m appuser
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install pnpm
 
 # Copy package files and install dependencies
 COPY package.json ./
